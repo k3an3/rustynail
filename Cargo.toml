@@ -1,0 +1,16 @@
+[package]
+name = "hook"
+version = "0.1.0"
+authors = ["Keane O'Kelley <me@keane.space>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+redhook = "2.0"
+psutil = "3.2.0"
+nix = "0.18.0"
+
+[lib]
+name = "hook"
+crate_type = ["dylib"]
