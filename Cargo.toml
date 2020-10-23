@@ -10,6 +10,8 @@ edition = "2018"
 redhook = "2.0"
 psutil = "3.2.0"
 nix = "0.18.0"
+errno = "0.2.6"
+lazy_static = "1.4.0"
 
 [lib]
 name = "hook"

